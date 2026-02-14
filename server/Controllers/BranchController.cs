@@ -43,17 +43,17 @@ namespace server.Controllers
             {
                 return BadRequest();
             }
-            var branch = _context.DbBranch.FirstOrDefault(x => x.BranchId == id);
+            var foundBranch = _context.DbBranch.FirstOrDefault(x => x.BranchId == id);
 
-            if (branch == null)
+            if (foundBranch == null)
                 return NotFound("Branch not found.");
 
             return Ok(new BranchDto
             {
-                BranchId = branch.BranchId,
-                BranchName = branch.BranchName,
-                BranchCity = branch.BranchCity,
-                BranchAddress = branch.BranchAddress,
+                BranchId = foundBranch.BranchId,
+                BranchName = foundBranch.BranchName,
+                BranchCity = foundBranch.BranchCity,
+                BranchAddress = foundBranch.BranchAddress,
             });
                 
         }
@@ -110,9 +110,9 @@ namespace server.Controllers
             {
                 return BadRequest();
             }
-            var branch = _context.DbBranch.FirstOrDefault(x=>x.BranchId == id);
-            if (branch == null) return NotFound("No Branch Found");
-            _context.DbBranch.Remove(branch);
+            var foundBranch = _context.DbBranch.FirstOrDefault(x=>x.BranchId == id);
+            if (foundBranch == null) return NotFound("No Branch Found");
+            _context.DbBranch.Remove(foundBranch);
             _context.SaveChanges();
             return Ok("Branch deleted successfully");
 

@@ -39,17 +39,17 @@ namespace server.Controllers
             {
                 return BadRequest();
             }
-            var department = _context.DbDepartment.FirstOrDefault(x => x.DepartId == id); 
+            var foundDepartment = _context.DbDepartment.FirstOrDefault(x => x.DepartId == id); 
 
-            if(department == null)
+            if(foundDepartment == null)
             {
                 return NotFound("Department not Found.");
             }
             return Ok(new DepartmentDto
             {
-                DepartId = department.DepartId,
-                DepartName = department.DepartName,
-                DepartDescription = department.DepartDescription
+                DepartId = foundDepartment.DepartId,
+                DepartName = foundDepartment.DepartName,
+                DepartDescription = foundDepartment.DepartDescription
             });
         }
 
@@ -62,7 +62,6 @@ namespace server.Controllers
             }
             var newDepartment = new Department
             {
-                DepartId = entity.DepartId,
                 DepartName = entity.DepartName,
                 DepartDescription = entity.DepartDescription
             };
@@ -78,13 +77,13 @@ namespace server.Controllers
             {
                 return BadRequest(ModelState);
             }
-            var department = _context.DbDepartment.FirstOrDefault(x=>x.DepartId==entity.DepartId);
-            if (department == null) 
+            var foundDepartment = _context.DbDepartment.FirstOrDefault(x=>x.DepartId==entity.DepartId);
+            if (foundDepartment == null) 
             {
                 return NotFound("Department not found.");
             }
-            department.DepartName = entity.DepartName;
-            department.DepartDescription =entity.DepartDescription;
+            foundDepartment.DepartName = entity.DepartName;
+            foundDepartment.DepartDescription =entity.DepartDescription;
             _context.SaveChanges();
             return Ok("Department updated Successfully.");
 
@@ -98,13 +97,13 @@ namespace server.Controllers
             {
                 return BadRequest();
             }
-            var department = _context.DbDepartment.FirstOrDefault(x => x.DepartId == id);
+            var foundDepartment = _context.DbDepartment.FirstOrDefault(x => x.DepartId == id);
 
-            if (department == null)
+            if (foundDepartment == null)
             {
                 return NotFound("Department not Found");
             }
-            _context.DbDepartment.Remove(department);
+            _context.DbDepartment.Remove(foundDepartment);
             _context.SaveChanges();
             return Ok("Department deleted Sucessfully.");
         }

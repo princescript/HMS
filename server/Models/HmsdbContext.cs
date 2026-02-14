@@ -16,7 +16,7 @@ public partial class HmsdbContext : DbContext
 
    public virtual DbSet<Department> DbDepartment { get; set; }
 
-    //public virtual DbSet<Doctor> Doctors { get; set; }
+    public virtual DbSet<Doctor> DbDoctor { get; set; }
 
 
     
