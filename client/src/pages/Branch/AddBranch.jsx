@@ -22,7 +22,7 @@ const AddBranch = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await api.post("/Branch/Create", branch);
+      const res = await api.post("/Branch", branch);
       toast.success("Branch created successfully");
       setBranch(initialBranch);
       navigate("/Branch");
@@ -30,6 +30,8 @@ const AddBranch = () => {
     } catch (error) {
       console.error("Error adding branch:", error);
       toast.error("Failed to create branch");
+      setBranch(initialBranch);
+      navigate("/Branch");
     }
   };
   return (

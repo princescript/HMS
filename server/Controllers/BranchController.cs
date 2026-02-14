@@ -13,10 +13,10 @@ namespace server.Controllers
         {
             _context = context;
         }
-        
 
-        [HttpGet("GetAll", Name = "Get All Data Api")]
-        public ActionResult<IEnumerable<BranchDto>> GetAllBranch()
+
+        [HttpGet("GetAll",Name ="GetAllBranches")]
+        public ActionResult<IEnumerable<BranchDto>> GetAll()
         {
             var branches = _context.DbBranch.Select(x => new BranchDto
             {
@@ -27,16 +27,17 @@ namespace server.Controllers
 
             });
 
-            if (branches == null)
+            if (branches == null || !branches.Any())
             {
                 return NoContent();
             }
+
             return Ok(branches);
         }
 
 
-        [HttpGet("{id:int}",Name ="Get Branch by Id")]
-        public ActionResult<BranchDto> GetBranchByID(int id)
+        [HttpGet("{id:int}",Name ="GetBranchById")]
+        public ActionResult<BranchDto> GetByID(int id)
         {
             if (id <= 0)
             {
@@ -58,8 +59,8 @@ namespace server.Controllers
         }
 
 
-        [HttpPost("Create")]
-        public ActionResult<BranchDto> CreateBranch(BranchDto entity)
+        [HttpPost(Name ="CreateBranch")]
+        public ActionResult<BranchDto> Create(BranchDto entity)
         {
             if (!ModelState.IsValid)
             {
@@ -78,8 +79,8 @@ namespace server.Controllers
         }
         #region
         
-        [HttpPut("{id:int}")]
-        public ActionResult UpdateBranch(BranchDto entity)
+        [HttpPut("{id:int}",Name ="UpdateBranchById")]
+        public ActionResult Update(BranchDto entity)
         {
             if (!ModelState.IsValid)
             {
@@ -98,11 +99,11 @@ namespace server.Controllers
 
             //_context.DbBranch.Entry(foundBranch).State = EntityState.Modified;
             _context.SaveChanges();
-            return Ok();
+            return Ok("Branch updated Successfully.");
         }
         #endregion
 
-        [HttpDelete("{id:int}",Name ="Delete By ID")]
+        [HttpDelete("{id:int}",Name ="DeleteBranchByID")]
         public ActionResult DeleteByID(int id)
         {
             if (id <= 0)
@@ -113,7 +114,7 @@ namespace server.Controllers
             if (branch == null) return NotFound("No Branch Found");
             _context.DbBranch.Remove(branch);
             _context.SaveChanges();
-            return NoContent();
+            return Ok("Branch deleted successfully");
 
         }
     }
