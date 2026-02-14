@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using server.DTOs;
 using server.DTOs.Doctor;
 using server.Models;
 
@@ -9,6 +10,7 @@ namespace server.Controllers
     public class DoctorController : ControllerBase
     {
         private readonly HmsdbContext _context;
+
         public DoctorController(HmsdbContext context)
         {
             _context = context;
@@ -17,7 +19,7 @@ namespace server.Controllers
         [HttpGet("GetAll",Name ="GetAllDoctors")]
         public ActionResult<IEnumerable<DoctorDto>> GetAll()
         {
-            var doctors = _context.DbDoctor.Select(x =>
+            var  doctors = _context.DbDoctor.Select(x =>
             new DoctorDto {
                 DocId = x.DocId,
                 DocName = x.DocName,
@@ -28,7 +30,15 @@ namespace server.Controllers
             {
                 return NoContent();
             }
-            return Ok(doctors);
+            var res = new Response<object>
+            {
+                Code = 200,
+                Sucess = true,
+                Message = "no msg",
+                Data = new {resultSet=doctors.ToList() },
+                Pagination = null
+            };
+            return Ok(res);
         }
 
         [HttpGet("{id:int}", Name = "GetDoctorById")]
