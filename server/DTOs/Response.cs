@@ -7,7 +7,7 @@ namespace server.DTOs
         public int? Code { get; set; } = null;
         public bool Sucess { get; set; } = false;
         public string Message { get; set; } = " ";
-        public T Data {  get; set; }
+        public T? Data {  get; set; }
         public int? Pagination { get; set; } = null;
 
    
