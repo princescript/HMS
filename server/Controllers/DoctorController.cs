@@ -71,7 +71,6 @@ namespace server.Controllers
             }
             var newDoctor = new Doctor
             {
-                DocId = entity.DocId,
                 DocName = entity.DocName,
                 DocPhone = entity.DocPhone,
                 DocSpecialization = entity.DocSpecialization,
