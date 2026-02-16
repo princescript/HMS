@@ -2,7 +2,6 @@
 using server.DTOs;
 using server.DTOs.Doctor;
 using server.Models;
-using System.Linq.Expressions;
 
 namespace server.Controllers
 {
