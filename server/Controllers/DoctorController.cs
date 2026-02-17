@@ -3,6 +3,7 @@ using server.DTOs;
 using server.DTOs.Doctor;
 using server.Models;
 
+
 namespace server.Controllers
 {
     [Route("api/[controller]")]
@@ -32,22 +33,21 @@ namespace server.Controllers
                 return Ok(new Response<object>
                 {
                     Code = 200,
-                    Success = true,
+                    Success = false,
                     Message = "Doctors not  found.",
                     Data = null,
                     Pagination = null,
 
                 });
-            }
-            var res = new Response<object>
+            }   
+            return Ok(new Response<object>
             {
                 Code = 200,
                 Success = true,
                 Message = "All doctors data fetched successfully.",
                 Data = new { resultSet = doctors },
                 Pagination = null
-            };
-            return Ok(res);
+            });
         }
 
         [HttpGet("{id:int}", Name = "GetDoctorById")]
